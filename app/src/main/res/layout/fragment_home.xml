@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".HomeFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout1"
+                android:backgroundTint="#8a2be2"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hi Daniel!"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="wana read your last book?"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/iconsach" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="The    Institute"
+                            android:textColor="@color/white"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="by Stephen King"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_read"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Read 42%"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <SeekBar
+                            android:id="@+id/seekBar"
+                            android:layout_width="173dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="-16dp"
+                            android:max="100"
+                            android:progress="42"
+                            android:progressDrawable="@drawable/seekbar_style"
+                            android:thumb="@drawable/custom_thumb" />
+
+                        <ImageView
+                            android:id="@+id/img_doc"
+                            android:layout_width="150dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/screenshot_1621514862" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="960dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="35dp"
+                    android:text="Recently Read"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="465dp"
+                    android:layout_height="203dp"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:id="@+id/scrollView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="140dp"
+                                android:layout_height="200dp"
+                                android:layout_marginLeft="35dp"
+                                android:src="@drawable/iconsach1" />
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="140dp"
+                                android:layout_height="200dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/iconsach2" />
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="140dp"
+                                android:layout_height="200dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/iconsach3" />
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="560dp"
+                    android:layout_marginLeft="37dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="37dp"
+                    android:background="@drawable/layout2"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/lv_dsTruyenDoc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

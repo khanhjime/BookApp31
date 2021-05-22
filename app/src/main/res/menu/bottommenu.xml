@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@drawable/iconfinder_home_2561449"
+        app:cnb_iconColor="#7804C6"
+        app:cnb_textColor="#7804C6"
+        app:cnb_backgroundColor="#E0C4E4">
+    </item>
+    <item android:id="@+id/navigation_bookshelf"
+        android:title="Bookshelf"
+        app:cnb_iconColor="#7804C6"
+        app:cnb_textColor="#7804C6"
+        app:cnb_backgroundColor="#E0C4E4"
+        android:icon="@drawable/iconfinder_book_2561345">
+    </item>
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/iconfinder_multimedia"
+        android:title="Settings"
+        app:cnb_backgroundColor="#E0C4E4"
+        app:cnb_iconColor="#7804C6"
+        app:cnb_textColor="#7804C6"></item>
+</menu>
