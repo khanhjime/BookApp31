@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,7 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe {
               adapter= new TruyenTranhAdapter(getContext(),R.layout.item_truyen,truyenTranhArrayList);
               gdvDSTruyen.setAdapter(adapter);
           }catch (JSONException e){
-
+              Log.e("TAG", "ketThuc: " );
 
           }
     }

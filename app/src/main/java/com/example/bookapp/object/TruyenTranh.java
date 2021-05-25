@@ -14,7 +14,7 @@ public class TruyenTranh {
     public TruyenTranh(JSONObject o)throws JSONException {
        tenTruyen= o.getString("tenTruyen");
        tenChap= o.getString("tenChap");
-       linkAnh= o.getString("linkAnh");
+       linkAnh= o.getString("linhAnh");
 
 
     }
