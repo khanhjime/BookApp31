@@ -29,6 +29,21 @@ public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
         this.arr= new ArrayList<>(objects);
 
     }
+    public void sortTruyen(String s){
+        s=s.toUpperCase();
+        int k=0;
+        for (int i = 0; i <arr.size() ; i++) {
+            TruyenTranh t= arr.get(i);
+            String ten= t.getTenTruyen().toUpperCase();
+            if (ten.indexOf(s) >=0) {
+                arr.set(i,arr.get(k));
+                arr.set(k,t);
+                k++;
+            }
+
+        }
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -49,7 +64,7 @@ public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
             tenTenTruyen.setText(truyenTranh.getTenTruyen());
             tenTenChap.setText(truyenTranh.getTenChap());
 
-            Glide.with(context).load(truyenTranh.getLinhAnh()).into(imgAnhTruyen);
+            Glide.with(context).load(truyenTranh.getLinkAnh()).into(imgAnhTruyen);
 
         return convertView;
     }

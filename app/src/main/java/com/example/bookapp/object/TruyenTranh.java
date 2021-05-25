@@ -1,17 +1,29 @@
 package com.example.bookapp.object;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TruyenTranh {
-    private String tenTruyen,tenChap;
-    private int linhAnh;
+    private String tenTruyen,tenChap, linkAnh;
+
+
 
     public TruyenTranh(){
 
     }
+    public TruyenTranh(JSONObject o)throws JSONException {
+       tenTruyen= o.getString("tenTruyen");
+       tenChap= o.getString("tenChap");
+       linkAnh= o.getString("linkAnh");
 
-    public TruyenTranh(String tenTruyen, String tenChap, int linhAnh) {
+
+    }
+
+
+    public TruyenTranh(String tenTruyen, String tenChap, String linkAnh) {
         this.tenTruyen = tenTruyen;
         this.tenChap = tenChap;
-        this.linhAnh = linhAnh;
+        this.linkAnh = linkAnh;
     }
 
     public String getTenTruyen() {
@@ -30,11 +42,12 @@ public class TruyenTranh {
         this.tenChap = tenChap;
     }
 
-    public int getLinhAnh() {
-        return linhAnh;
+    public String getLinkAnh() {
+        return linkAnh;
     }
 
-    public void setLinhAnh(int linhAnh) {
-        this.linhAnh = linhAnh;
+    public void setLinkAnh(String linkAnh) {
+        this.linkAnh = linkAnh;
     }
 }
+
