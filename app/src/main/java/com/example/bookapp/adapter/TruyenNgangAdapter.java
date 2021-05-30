@@ -23,7 +23,7 @@ import java.util.List;
 public class TruyenNgangAdapter extends RecyclerView.Adapter<BookViewHolder> {
     // Lưu Context để dễ dàng truy cập
     private final Context context;
-    //Dữ liệu hiện thị là danh sách truyen tranh
+    //Dữ liệu hiện thị là danh sách truyen ngang
     private final List<TruyenNgang> truyenNgangs;
 
     public TruyenNgangAdapter(Context context, ArrayList<TruyenNgang> objects) {
