@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TruyenTranh {
-    private String tenTruyen,tenChap, linkAnh;
+    private String tenTruyen, linkAnh, noiDung;
 
 
 
@@ -13,17 +13,17 @@ public class TruyenTranh {
     }
     public TruyenTranh(JSONObject o)throws JSONException {
        tenTruyen= o.getString("tenTruyen");
-       tenChap= o.getString("tenChap");
        linkAnh= o.getString("linhAnh");
+        noiDung= o.getString("noiDung");
+
 
 
     }
 
-
-    public TruyenTranh(String tenTruyen, String tenChap, String linkAnh) {
+    public TruyenTranh(String tenTruyen, String linkAnh, String noiDung) {
         this.tenTruyen = tenTruyen;
-        this.tenChap = tenChap;
         this.linkAnh = linkAnh;
+        this.noiDung = noiDung;
     }
 
     public String getTenTruyen() {
@@ -34,20 +34,20 @@ public class TruyenTranh {
         this.tenTruyen = tenTruyen;
     }
 
-    public String getTenChap() {
-        return tenChap;
-    }
-
-    public void setTenChap(String tenChap) {
-        this.tenChap = tenChap;
-    }
-
     public String getLinkAnh() {
         return linkAnh;
     }
 
     public void setLinkAnh(String linkAnh) {
         this.linkAnh = linkAnh;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.bookapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bookapp.adapter.TruyenTranhAdapter;
@@ -29,7 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class BookshelfFragment extends Fragment implements LayTruyenVe {
+public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenTranhAdapter.OnClickItemListener {
     GridView gdvDSTruyen;
     TruyenTranhAdapter adapter;
     ArrayList<TruyenTranh> truyenTranhArrayList;
@@ -48,20 +50,27 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
+        init(view);
         anhXa(view);
         setUp();
         setClick();
         new ApiLayTruyen(this).execute();
+
+
+
     }
 
 
-    private void init(){
+    private void init(View view){
         truyenTranhArrayList= new ArrayList<>();
 
         adapter= new TruyenTranhAdapter(getContext(),R.layout.item_truyen,truyenTranhArrayList);
+        adapter.setListener(this);
 
+        ImageView imageView= (ImageView) view.findViewById(R.id.imgUpdate);
+        imageView.setOnClickListener(v -> {new ApiLayTruyen(this).execute();});
     }
+
     private void anhXa(View view){
 
         gdvDSTruyen= view.findViewById(R.id.gdvDSTruyen);
@@ -106,6 +115,7 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe {
                   truyenTranhArrayList.add(new TruyenTranh(o));
               }
               adapter= new TruyenTranhAdapter(getContext(),R.layout.item_truyen,truyenTranhArrayList);
+              adapter.setListener(this);
               gdvDSTruyen.setAdapter(adapter);
           }catch (JSONException e){
               Log.e("TAG", "ketThuc: " );
@@ -117,5 +127,12 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe {
     public void biLoi() {
         Toast.makeText(getContext(),"Loi Ket Noi",Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void itemClickListener(int pos) {
+        Intent intent = new Intent(getContext(),ReadActivity.class);
+        intent.putExtra("noiDung",truyenTranhArrayList.get(pos).getNoiDung());
+        startActivity(intent);
     }
 }

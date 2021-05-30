@@ -22,6 +22,7 @@ import java.util.List;
 public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
     private  Context context;
     private ArrayList<TruyenTranh> arr;
+    private OnClickItemListener listener;
 
     public TruyenTranhAdapter(@NonNull Context context, int resource, @NonNull List<TruyenTranh> objects) {
         super(context, resource, objects);
@@ -57,16 +58,26 @@ public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
             TruyenTranh truyenTranh= arr.get(position);
 
             TextView tenTenTruyen= convertView.findViewById(R.id.txtTenTruyen);
-            TextView tenTenChap= convertView.findViewById(R.id.txtTenChap);
+
             ImageView imgAnhTruyen= convertView.findViewById(R.id.imgAnhTruyen);
 
 
             tenTenTruyen.setText(truyenTranh.getTenTruyen());
-            tenTenChap.setText(truyenTranh.getTenChap());
 
             Glide.with(context).load(truyenTranh.getLinkAnh()).into(imgAnhTruyen);
+
+            convertView.setOnClickListener(v -> {
+                listener.itemClickListener(position);
+            });
 
         return convertView;
     }
 
+    public void setListener(OnClickItemListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnClickItemListener{
+        void itemClickListener(int pos);
+    }
 }
