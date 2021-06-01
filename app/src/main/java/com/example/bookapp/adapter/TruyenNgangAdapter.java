@@ -25,6 +25,7 @@ public class TruyenNgangAdapter extends RecyclerView.Adapter<BookViewHolder> {
     private final Context context;
     //Dữ liệu hiện thị là danh sách truyen ngang
     private final List<TruyenNgang> truyenNgangs;
+//    private TruyenNgangAdapter.OnClickItemListener listener;
 
     public TruyenNgangAdapter(Context context, ArrayList<TruyenNgang> objects) {
         this.context = context;
@@ -48,6 +49,14 @@ public class TruyenNgangAdapter extends RecyclerView.Adapter<BookViewHolder> {
     public int getItemCount() {
         return truyenNgangs.size();
     }
+//
+//    public void setListener(TruyenNgangAdapter.OnClickItemListener listener) {
+//        this.listener = listener;
+//    }
+//
+//    public interface OnClickItemListener{
+//        void itemClickListener(int pos);
+//    }
 }
 
 class BookViewHolder extends RecyclerView.ViewHolder {

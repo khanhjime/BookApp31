@@ -7,7 +7,6 @@ public class TruyenTranh {
     private String tenTruyen, linkAnh, noiDung;
 
 
-
     public TruyenTranh(){
 
     }
@@ -15,9 +14,6 @@ public class TruyenTranh {
        tenTruyen= o.getString("tenTruyen");
        linkAnh= o.getString("linhAnh");
         noiDung= o.getString("noiDung");
-
-
-
     }
 
     public TruyenTranh(String tenTruyen, String linkAnh, String noiDung) {

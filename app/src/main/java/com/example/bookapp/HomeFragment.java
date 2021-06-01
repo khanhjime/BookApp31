@@ -9,24 +9,34 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.bookapp.adapter.TruyenNgangAdapter;
+import com.example.bookapp.adapter.TruyenTranhAdapter;
+import com.example.bookapp.api.ApiLayTruyen;
+import com.example.bookapp.interfaces.LayTruyenVe;
 import com.example.bookapp.object.TruyenNgang;
+import com.example.bookapp.object.TruyenTranh;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements LayTruyenVe {
 
     private RecyclerView dsTruyenNgang;
     private TruyenNgangAdapter truyenNgangAdapter;
     ImageView img_doc;
+    ArrayList<TruyenNgang> truyenNgangArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +52,8 @@ public class HomeFragment extends Fragment{
         anhXa(view);
         init();
 
+        new ApiLayTruyen(this).execute();
+
         img_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +63,8 @@ public class HomeFragment extends Fragment{
     }
 
     private void init(){
-        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), getDataFake());
-//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3, RecyclerView.VERTICAL, false);
+        truyenNgangArrayList = new ArrayList<>();
+        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), truyenNgangArrayList);
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
@@ -66,17 +78,32 @@ public class HomeFragment extends Fragment{
         img_doc = view.findViewById(R.id.img_doc);
     }
 
-    private ArrayList<TruyenNgang> getDataFake() {
-        ArrayList<TruyenNgang> listTemp = new ArrayList<>();
-        listTemp.add(new TruyenNgang(R.drawable.iconsach1));
-        listTemp.add(new TruyenNgang(R.drawable.iconsach2));
-        listTemp.add(new TruyenNgang(R.drawable.iconsach3));
-        listTemp.add(new TruyenNgang(R.drawable.iconsach4));
-        listTemp.add(new TruyenNgang(R.drawable.iconsach5));
-        listTemp.add(new TruyenNgang(R.drawable.iconsach6));
-        listTemp.add(new TruyenNgang(R.drawable.anh5));
-        listTemp.add(new TruyenNgang(R.drawable.anh8));
-        return listTemp;
+    @Override
+    public void batDau() {
+        Toast.makeText(getContext(),"Dang Lay Ve",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ketThuc(String data) {
+        try {
+            truyenNgangArrayList.clear();
+            JSONArray array= new JSONArray(data);
+            for (int i = 0; i <array.length() ; i++) {
+                JSONObject o= array.getJSONObject(i);
+                truyenNgangArrayList.add(new TruyenNgang(o));
+            }
+            truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList);
+            dsTruyenNgang.setAdapter(truyenNgangAdapter);
+        }catch (JSONException e){
+            Log.e("TAG", "ketThuc: " );
+
+        }
+    }
+
+    @Override
+    public void biLoi() {
+        Toast.makeText(getContext(),"Loi Ket Noi",Toast.LENGTH_SHORT).show();
+
     }
 
 }
