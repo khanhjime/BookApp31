@@ -15,7 +15,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="376dp"
                 android:background="@drawable/layout1"
                 android:backgroundTint="#8a2be2"
                 android:orientation="vertical"
@@ -25,6 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="28dp"
+                    android:layout_marginTop="20dp"
                     android:text="Hi!"
                     android:textColor="@color/white"
                     android:textSize="30sp"
@@ -47,8 +48,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
+                        android:layout_width="110dp"
+                        android:layout_height="220dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/iconsach" />
 
@@ -80,6 +81,7 @@
                             android:id="@+id/tv_read"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:text="Read 42%"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
@@ -97,10 +99,10 @@
 
                         <ImageView
                             android:id="@+id/img_doc"
-                            android:layout_width="150dp"
+                            android:layout_width="146dp"
                             android:layout_height="43dp"
                             android:layout_marginLeft="-5dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="20dp"
                             android:src="@drawable/screenshot_1621514862" />
 
                     </LinearLayout>

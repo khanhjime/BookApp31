@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.bookapp.R;
 import com.example.bookapp.ReadActivity;
 import com.example.bookapp.object.TruyenNgang;
+import com.example.bookapp.object.TruyenTranh;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,6 +48,9 @@ public class TruyenNgangAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public int getItemCount() {
+        for (int i = 5; i <truyenNgangs.size() ; i++) {
+
+        }
         return truyenNgangs.size();
     }
 //
@@ -65,7 +69,7 @@ class BookViewHolder extends RecyclerView.ViewHolder {
 
     public BookViewHolder(@NonNull @NotNull View itemView, Context context) {
         super(itemView);
-        this.context =context;
+        this.context = context;
         image = itemView.findViewById(R.id.img_truyenngang1);
     }
 
