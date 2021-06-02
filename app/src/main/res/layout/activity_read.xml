@@ -33,9 +33,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="585dp">
+            android:layout_height="630dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/noiDung"
@@ -48,14 +48,17 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/desTv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp" />
             </ScrollView>
         </LinearLayout>
 
