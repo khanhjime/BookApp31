@@ -122,7 +122,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="35dp"
-                    android:text="Recently Read"
+                    android:text="New Books"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -135,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="47dp"
-        android:layout_marginTop="390dp"
+        android:layout_marginTop="420dp"
         app:spanCount="3" />
 
 </RelativeLayout>
