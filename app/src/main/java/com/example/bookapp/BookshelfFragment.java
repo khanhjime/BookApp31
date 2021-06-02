@@ -137,6 +137,7 @@ public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenT
     public void itemClickListener(int pos) {
         Intent intent = new Intent(getContext(),ReadActivity.class);
         intent.putExtra("noiDung",truyenTranhArrayList.get(pos).getNoiDung());
+        intent.putExtra("tenTruyen",truyenTranhArrayList.get(pos).getTenTruyen());
         startActivity(intent);
     }
 }

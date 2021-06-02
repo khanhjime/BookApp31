@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ReadActivity extends AppCompatActivity {
 
     ImageView img_back;
+    TextView tv_ndung,tv_tenTruyen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class ReadActivity extends AppCompatActivity {
         actionBar.hide();
 
         img_back = findViewById(R.id.btnback);
+        tv_ndung = findViewById(R.id.desTv);
+        tv_tenTruyen = findViewById(R.id.txt_tenTruyen);
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,8 +36,9 @@ public class ReadActivity extends AppCompatActivity {
         });
 
         String noiDung = getIntent().getStringExtra("noiDung");
-        TextView tv = findViewById(R.id.desTv);
-        tv.setText(noiDung);
+        String tenTruyen = getIntent().getStringExtra("tenTruyen");
+        tv_ndung.setText(noiDung);
+        tv_tenTruyen.setText(tenTruyen);
 
     }
 }

@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HomeFragment extends Fragment implements LayTruyenVe {
+public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener {
 
     private RecyclerView dsTruyenNgang;
     private TruyenNgangAdapter truyenNgangAdapter;
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
 
     private void init(){
         truyenNgangArrayList = new ArrayList<>();
-        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), truyenNgangArrayList);
+        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), truyenNgangArrayList,this);
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
                 JSONObject o= array.getJSONObject(i);
                 truyenNgangArrayList.add(new TruyenNgang(o));
             }
-            truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList);
+            truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList,this);
             dsTruyenNgang.setAdapter(truyenNgangAdapter);
             Collections.reverse(truyenNgangArrayList);
         }catch (JSONException e){
@@ -108,14 +108,8 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
     public void itemClickListener(int pos) {
         Intent intent = new Intent(getContext(),ReadActivity.class);
         intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
+        intent.putExtra("tenTruyen",truyenNgangArrayList.get(pos).getTenTruyen());
         startActivity(intent);
     }
-
-//    @Override
-//    public void itemClickListener(int pos) {
-//        Intent intent = new Intent(getContext(),ReadActivity.class);
-//        intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
-//        startActivity(intent);
-//    }
 
 }
