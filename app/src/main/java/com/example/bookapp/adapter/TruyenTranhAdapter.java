@@ -4,41 +4,40 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.bookapp.R;
 import com.example.bookapp.object.TruyenTranh;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
-    private  Context context;
-    private ArrayList<TruyenTranh> arr;
+import java.util.ArrayList;
+
+public class TruyenTranhAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+    private final Context context;
+    private final ArrayList<TruyenTranh> arr;
     private OnClickItemListener listener;
 
-    public TruyenTranhAdapter(@NonNull Context context, int resource, @NonNull List<TruyenTranh> objects) {
-        super(context, resource, objects);
-        this.context= context;
-        this.arr= new ArrayList<>(objects);
-
+    public TruyenTranhAdapter(Context context, ArrayList<TruyenTranh> arr, OnClickItemListener listener) {
+        this.context = context;
+        this.arr = arr;
+        this.listener = listener;
     }
-    public void sortTruyen(String s){
-        s=s.toUpperCase();
-        int k=0;
-        for (int i = 0; i <arr.size() ; i++) {
-            TruyenTranh t= arr.get(i);
-            String ten= t.getTenTruyen().toUpperCase();
-            if (ten.indexOf(s) >=0) {
-                arr.set(i,arr.get(k));
-                arr.set(k,t);
+
+    public void sortTruyen(String s) {
+        s = s.toUpperCase();
+        int k = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            TruyenTranh t = arr.get(i);
+            String ten = t.getTenTruyen().toUpperCase();
+            if (ten.indexOf(s) >= 0) {
+                arr.set(i, arr.get(k));
+                arr.set(k, t);
                 k++;
             }
 
@@ -46,38 +45,53 @@ public class TruyenTranhAdapter extends ArrayAdapter<TruyenTranh> {
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView== null){
-            LayoutInflater inflater= LayoutInflater.from(context);
-            convertView= inflater.inflate(R.layout.item_truyen, null);
-
-        }
-
-            TruyenTranh truyenTranh= arr.get(position);
-
-            TextView tenTenTruyen= convertView.findViewById(R.id.txtTenTruyen);
-
-            ImageView imgAnhTruyen= convertView.findViewById(R.id.imgAnhTruyen);
-
-
-            tenTenTruyen.setText(truyenTranh.getTenTruyen());
-
-            Glide.with(context).load(truyenTranh.getLinkAnh()).into(imgAnhTruyen);
-
-            convertView.setOnClickListener(v -> {
-                listener.itemClickListener(position);
-            });
-
-        return convertView;
-    }
-
     public void setListener(OnClickItemListener listener) {
         this.listener = listener;
     }
 
-    public interface OnClickItemListener{
+    @NonNull
+    @NotNull
+    @Override
+    public ItemViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        LayoutInflater from = LayoutInflater.from(parent.getContext());
+        return new ItemViewHolder(from.inflate(R.layout.item_truyen, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull ItemViewHolder holder, int position) {
+        holder.bindView(arr.get(position),listener );
+    }
+
+    @Override
+    public int getItemCount() {
+        return arr.size();
+    }
+
+
+    public interface OnClickItemListener {
         void itemClickListener(int pos);
+    }
+}
+
+class ItemViewHolder extends RecyclerView.ViewHolder {
+
+    private final TextView tenTenTruyen;
+    private final ImageView imgAnhTruyen;
+
+    public ItemViewHolder(@NonNull @NotNull View itemView) {
+        super(itemView);
+        tenTenTruyen = itemView.findViewById(R.id.txtTenTruyen);
+        imgAnhTruyen = itemView.findViewById(R.id.imgAnhTruyen);
+    }
+
+    public void bindView(TruyenTranh item, TruyenTranhAdapter.OnClickItemListener listener) {
+
+        tenTenTruyen.setText(item.getTenTruyen());
+
+        Glide.with(itemView.getContext()).load(item.getLinkAnh()).into(imgAnhTruyen);
+
+        itemView.setOnClickListener(v -> {
+            listener.itemClickListener(getAdapterPosition());
+        });
     }
 }

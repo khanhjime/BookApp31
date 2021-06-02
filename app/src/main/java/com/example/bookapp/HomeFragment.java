@@ -106,5 +106,10 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
         Toast.makeText(getContext(),"Loi Ket Noi",Toast.LENGTH_SHORT).show();
 
     }
+    public void itemClickListener(int pos) {
+        Intent intent = new Intent(getContext(),ReadActivity.class);
+        intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
+        startActivity(intent);
+    }
 
 }

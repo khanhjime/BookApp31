@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenTranhAdapter.OnClickItemListener {
-    GridView gdvDSTruyen;
+    RecyclerView gdvDSTruyen;
     TruyenTranhAdapter adapter;
     ArrayList<TruyenTranh> truyenTranhArrayList;
     EditText edtTK;
@@ -50,8 +52,8 @@ public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenT
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init(view);
         anhXa(view);
+        init(view);
         setUp();
         setClick();
         new ApiLayTruyen(this).execute();
@@ -64,8 +66,9 @@ public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenT
     private void init(View view){
         truyenTranhArrayList= new ArrayList<>();
 
-        adapter= new TruyenTranhAdapter(getContext(),R.layout.item_truyen,truyenTranhArrayList);
-        adapter.setListener(this);
+        adapter= new TruyenTranhAdapter(getContext(),truyenTranhArrayList,this);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3,RecyclerView.VERTICAL,false);
+        gdvDSTruyen.setLayoutManager(layoutManager);
 
         ImageView imageView= (ImageView) view.findViewById(R.id.imgUpdate);
         imageView.setOnClickListener(v -> {new ApiLayTruyen(this).execute();});
@@ -114,8 +117,9 @@ public class  BookshelfFragment extends Fragment implements LayTruyenVe, TruyenT
                   JSONObject o= array.getJSONObject(i);
                   truyenTranhArrayList.add(new TruyenTranh(o));
               }
-              adapter= new TruyenTranhAdapter(getContext(),R.layout.item_truyen,truyenTranhArrayList);
-              adapter.setListener(this);
+              adapter= new TruyenTranhAdapter(getContext(),truyenTranhArrayList,this);
+              GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3,RecyclerView.VERTICAL,false);
+              gdvDSTruyen.setLayoutManager(layoutManager);
               gdvDSTruyen.setAdapter(adapter);
           }catch (JSONException e){
               Log.e("TAG", "ketThuc: " );

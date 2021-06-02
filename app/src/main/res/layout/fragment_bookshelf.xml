@@ -46,13 +46,14 @@
 
     </RelativeLayout>
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gdvDSTruyen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="60dp"
-        android:numColumns="3">
+        android:numColumns="3"
+        >
 
-    </GridView>
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>
