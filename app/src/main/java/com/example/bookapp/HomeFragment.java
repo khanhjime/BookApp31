@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeFragment extends Fragment implements LayTruyenVe {
 
@@ -68,7 +69,6 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
-
         dsTruyenNgang.setAdapter(truyenNgangAdapter);
 
     }
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
             }
             truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList);
             dsTruyenNgang.setAdapter(truyenNgangAdapter);
+            Collections.reverse(truyenNgangArrayList);
         }catch (JSONException e){
             Log.e("TAG", "ketThuc: " );
 
