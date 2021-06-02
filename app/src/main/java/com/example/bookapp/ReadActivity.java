@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ReadActivity extends AppCompatActivity {
@@ -17,6 +18,10 @@ public class ReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.hide();
 
         img_back = findViewById(R.id.btnback);
 

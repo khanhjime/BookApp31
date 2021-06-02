@@ -104,7 +104,13 @@ public class HomeFragment extends Fragment implements LayTruyenVe {
     @Override
     public void biLoi() {
         Toast.makeText(getContext(),"Loi Ket Noi",Toast.LENGTH_SHORT).show();
-
     }
+
+//    @Override
+//    public void itemClickListener(int pos) {
+//        Intent intent = new Intent(getContext(),ReadActivity.class);
+//        intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
+//        startActivity(intent);
+//    }
 
 }
