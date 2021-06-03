@@ -3,20 +3,13 @@ package com.example.bookapp.object;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class TruyenTranh {
-    private String tenTruyen, linkAnh, noiDung;
+    private String tenTruyen, linkAnh;
+    private ArrayList<Chap> noiDung;
 
-
-    public TruyenTranh(){
-
-    }
-    public TruyenTranh(JSONObject o)throws JSONException {
-       tenTruyen= o.getString("tenTruyen");
-       linkAnh= o.getString("linhAnh");
-        noiDung= o.getString("noiDung");
-    }
-
-    public TruyenTranh(String tenTruyen, String linkAnh, String noiDung) {
+    public TruyenTranh(String tenTruyen, String linkAnh, ArrayList<Chap> noiDung) {
         this.tenTruyen = tenTruyen;
         this.linkAnh = linkAnh;
         this.noiDung = noiDung;
@@ -38,11 +31,11 @@ public class TruyenTranh {
         this.linkAnh = linkAnh;
     }
 
-    public String getNoiDung() {
+    public ArrayList<Chap> getNoiDung() {
         return noiDung;
     }
 
-    public void setNoiDung(String noiDung) {
+    public void setNoiDung(ArrayList<Chap> noiDung) {
         this.noiDung = noiDung;
     }
 }

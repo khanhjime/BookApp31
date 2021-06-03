@@ -19,12 +19,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class TruyenTranhAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-    private final Context context;
     private final ArrayList<TruyenTranh> arr;
     private OnClickItemListener listener;
 
     public TruyenTranhAdapter(Context context, ArrayList<TruyenTranh> arr, OnClickItemListener listener) {
-        this.context = context;
         this.arr = arr;
         this.listener = listener;
     }
@@ -37,7 +35,7 @@ public class TruyenTranhAdapter extends RecyclerView.Adapter<ItemViewHolder> {
             String ten = t.getTenTruyen().toUpperCase();
             if (ten.indexOf(s) >= 0) {
                 arr.set(i, arr.get(k));
-                arr.set(k, t);
+                arr.set(k,t);
                 k++;
             }
 
