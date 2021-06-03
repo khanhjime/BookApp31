@@ -61,7 +61,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="120dp"
+                            android:layout_width="155dp"
                             android:layout_height="wrap_content"
                             android:text="The    Institute"
                             android:textColor="@color/white"
@@ -101,7 +101,7 @@
                             android:id="@+id/img_doc"
                             android:layout_width="146dp"
                             android:layout_height="43dp"
-                            android:layout_marginLeft="-5dp"
+                            android:layout_marginLeft="-2dp"
                             android:layout_marginTop="20dp"
                             android:src="@drawable/screenshot_1621514862" />
 
@@ -112,7 +112,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="960dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -134,7 +134,7 @@
         android:id="@+id/rv_truyenngang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="47dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginTop="420dp"
         app:spanCount="3" />
 
