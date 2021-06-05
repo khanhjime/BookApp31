@@ -33,7 +33,7 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<Chap> listNoiDung = (ArrayList<Chap>) getIntent().getSerializableExtra("noiDung");
+//        ArrayList<Chap> listNoiDung = (ArrayList<Chap>) getIntent().getSerializableExtra("noiDung");
 
 
     }

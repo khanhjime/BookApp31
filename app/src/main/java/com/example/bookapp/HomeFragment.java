@@ -14,15 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bookapp.adapter.TruyenNgangAdapter;
-import com.example.bookapp.adapter.TruyenTranhAdapter;
 import com.example.bookapp.api.ApiLayTruyen;
 import com.example.bookapp.interfaces.LayTruyenVe;
 import com.example.bookapp.object.TruyenNgang;
-import com.example.bookapp.object.TruyenTranh;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -32,12 +29,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener {
-
+public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener{
     private RecyclerView dsTruyenNgang;
     private TruyenNgangAdapter truyenNgangAdapter;
-    ImageView img_doc;
     ArrayList<TruyenNgang> truyenNgangArrayList;
+    ImageView img_doc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,10 +53,12 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
 
         img_doc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),ReadActivity.class));
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ReadActivity.class);
+                startActivity(intent);
             }
         });
+
     }
 
     private void init(){
@@ -75,7 +73,7 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
     private void anhXa(View view){
 
         dsTruyenNgang= view.findViewById(R.id.rv_truyenngang);
-        img_doc = view.findViewById(R.id.img_doc);
+        img_doc=view.findViewById(R.id.img_doc);
     }
 
     @Override
