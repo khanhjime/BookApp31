@@ -1,21 +1,20 @@
 package com.example.bookapp.object;
 
+import android.widget.ArrayAdapter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class TruyenNgang {
-    private String tenTruyen, anhTruyenNgang, noiDung;
+    private String tenTruyen, anhTruyenNgang;
+    private ArrayList<Chap> noiDung;
 
     public TruyenNgang() {
     }
 
-    public TruyenNgang(JSONObject o)throws JSONException {
-        tenTruyen= o.getString("tenTruyen");
-        anhTruyenNgang= o.getString("linhAnh");
-        noiDung= o.getString("noiDung");
-    }
-
-    public TruyenNgang(String tenTruyen, String anhTruyenNgang, String noiDung) {
+    public TruyenNgang(String tenTruyen, String anhTruyenNgang, ArrayList<Chap> noiDung) {
         this.tenTruyen = tenTruyen;
         this.anhTruyenNgang = anhTruyenNgang;
         this.noiDung = noiDung;
@@ -37,11 +36,11 @@ public class TruyenNgang {
         this.anhTruyenNgang = anhTruyenNgang;
     }
 
-    public String getNoiDung() {
+    public ArrayList<Chap> getNoiDung() {
         return noiDung;
     }
 
-    public void setNoiDung(String noiDung) {
+    public void setNoiDung(ArrayList<Chap> noiDung) {
         this.noiDung = noiDung;
     }
 }
