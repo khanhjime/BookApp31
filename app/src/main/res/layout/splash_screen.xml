@@ -11,20 +11,21 @@
     <ImageView
         android:id="@+id/imgWpp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/wpp1" />
+        android:layout_height="596dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/banner" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="26dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="Read your book \n wherever you are"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
 </LinearLayout>

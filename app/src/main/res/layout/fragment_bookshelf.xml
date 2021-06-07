@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/imgUpdate"
-            android:layout_width="32dp"
-            android:layout_height="36dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="11dp"
             android:src="@drawable/icon2"
