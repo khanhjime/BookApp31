@@ -15,9 +15,20 @@
         android:layout_marginStart="29dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/white"
-        app:borderWidth="0dp"
         android:src="@drawable/ic_arrow_back"
+        app:borderWidth="0dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_tentruyen3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:text="Tên truyện"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewpager"
+        app:layout_constraintStart_toEndOf="@+id/fabBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager

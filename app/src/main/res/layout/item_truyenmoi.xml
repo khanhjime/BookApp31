@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_anhTruyenMoi"
+        android:layout_width="150dp"
+        android:layout_height="240dp" />
+
+    <TextView
+        android:id="@+id/txt_tenTruyen2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="10dp"
+        android:text="Tên truyện"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_doc"
+        android:layout_width="146dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="170dp"
+        android:src="@drawable/screenshot_1621514862" />
+</RelativeLayout>

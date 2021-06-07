@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,13 +63,16 @@ public class TruyenNgangAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
 class BookViewHolder extends RecyclerView.ViewHolder {
     private final ImageView image;
+    private final TextView textView;
 
     public BookViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
         image = itemView.findViewById(R.id.img_truyenngang1);
+        textView = itemView.findViewById(R.id.txtTenTruyen1);
     }
 
     public void bindView(TruyenNgang item, TruyenNgangAdapter.OnClickItemListener listener) {
+        textView.setText(item.getTenTruyen());
         Glide.with(itemView.getContext()).load(item.getAnhTruyenNgang()).into(image);
         itemView.setOnClickListener(v -> {
             listener.itemClickListener(getAdapterPosition());

@@ -14,14 +14,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bookapp.adapter.TruyenMoiAdaper;
 import com.example.bookapp.adapter.TruyenNgangAdapter;
 import com.example.bookapp.adapter.TruyenTranhAdapter;
 import com.example.bookapp.api.ApiLayTruyen;
 import com.example.bookapp.interfaces.LayTruyenVe;
 import com.example.bookapp.object.Chap;
+import com.example.bookapp.object.TruyenMoi;
 import com.example.bookapp.object.TruyenNgang;
 import com.example.bookapp.object.TruyenTranh;
 
@@ -33,11 +36,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener{
-    private RecyclerView dsTruyenNgang;
+public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener, TruyenMoiAdaper.OnClickItemListener{
+    private RecyclerView dsTruyenNgang, rv_truyenmoi;
     private TruyenNgangAdapter truyenNgangAdapter;
     ArrayList<TruyenNgang> truyenNgangArrayList;
-    ImageView img_doc;
+    private TruyenMoiAdaper truyenMoiAdaper;
+    ArrayList<TruyenMoi> truyenMoiArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,14 +59,6 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
 
         new ApiLayTruyen(this).execute();
 
-//        img_doc.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(),ReadActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 
     private void init(){
@@ -73,11 +69,18 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
         dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
         dsTruyenNgang.setAdapter(truyenNgangAdapter);
 
+        truyenMoiArrayList = new ArrayList<>();
+        truyenMoiAdaper = new TruyenMoiAdaper(getContext(), truyenMoiArrayList,this);
+        LinearLayoutManager horizontalLayoutManager1
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rv_truyenmoi.setLayoutManager(horizontalLayoutManager1);
+        rv_truyenmoi.setAdapter(truyenMoiAdaper);
+
     }
     private void anhXa(View view){
 
-        dsTruyenNgang= view.findViewById(R.id.rv_truyenngang);
-        img_doc=view.findViewById(R.id.img_doc);
+        dsTruyenNgang = view.findViewById(R.id.rv_truyenngang);
+        rv_truyenmoi = view.findViewById(R.id.rv_truyenmoi);
     }
 
     @Override
@@ -96,6 +99,16 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
         dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
         Collections.reverse(truyenNgangArrayList);
         dsTruyenNgang.setAdapter(truyenNgangAdapter);
+
+        Log.e("TAG", "ketThuc: " );
+        truyenMoiArrayList.clear();
+        truyenMoiArrayList.addAll(parseData1(data));
+        truyenMoiAdaper = new TruyenMoiAdaper(getContext(), truyenMoiArrayList, this);
+        LinearLayoutManager horizontalLayoutManager1
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rv_truyenmoi.setLayoutManager(horizontalLayoutManager1);
+        Collections.reverse(truyenMoiArrayList);
+        rv_truyenmoi.setAdapter(truyenMoiAdaper);
     }
 
     @Override
@@ -106,6 +119,8 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
         Intent intent = new Intent(getContext(),ReadActivity.class);
         intent.putExtra("tenTruyen",truyenNgangArrayList.get(pos).getTenTruyen());
         intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
+        intent.putExtra("tenTruyen",truyenMoiArrayList.get(pos).getTenTruyen());
+        intent.putExtra("noiDung",truyenMoiArrayList.get(pos).getNoiDung());
         startActivity(intent);
     }
 
@@ -117,7 +132,8 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
             JSONArray arrayJson = new JSONArray(json);
             for (int i = 0; i < arrayJson.length(); i++) {
                 ArrayList<Chap> listChap = new ArrayList<>();
-                JSONObject jsonObject = arrayJson.getJSONObject(i);;
+                JSONObject jsonObject = arrayJson.getJSONObject(i);
+                truyenNgangArrayList.add(new TruyenNgang());
                 tenTruyen = jsonObject.getString("tenTruyen");
                 linkAnh = jsonObject.getString("linhAnh");
                 JSONArray jsonArrayNd = jsonObject.getJSONArray("noiDung");
@@ -126,6 +142,32 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
                     listChap.add(new Chap(jsonObjectChap.getInt("pageNumber"), jsonObjectChap.getString("data")));
                 }
                 list.add(new TruyenNgang(tenTruyen, linkAnh,listChap));
+            }
+        } catch (Exception ex) {
+
+        }
+
+        return list;
+    }
+
+    private ArrayList<TruyenMoi> parseData1(String json) {
+        ArrayList<TruyenMoi> list = new ArrayList<>();
+        String tenTruyen, linkAnh;
+        Button doc = null;
+
+        try {
+            JSONArray arrayJson = new JSONArray(json);
+            for (int i = 0; i < arrayJson.length(); i++) {
+                ArrayList<Chap> listChap = new ArrayList<>();
+                JSONObject jsonObject = arrayJson.getJSONObject(i);
+                tenTruyen = jsonObject.getString("tenTruyen");
+                linkAnh = jsonObject.getString("linhAnh");
+                JSONArray jsonArrayNd = jsonObject.getJSONArray("noiDung");
+                for (int k = 0; k < jsonArrayNd.length(); k++) {
+                    JSONObject jsonObjectChap = jsonArrayNd.getJSONObject(k);
+                    listChap.add(new Chap(jsonObjectChap.getInt("pageNumber"), jsonObjectChap.getString("data")));
+                }
+                list.add(new TruyenMoi(tenTruyen, linkAnh, doc,listChap));
             }
         } catch (Exception ex) {
 

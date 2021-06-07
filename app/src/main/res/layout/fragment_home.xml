@@ -17,14 +17,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="376dp"
                 android:background="@drawable/layout1"
-                android:backgroundTint="#8a2be2"
                 android:orientation="vertical"
                 android:padding="24dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
+                    android:layout_marginLeft="23dp"
                     android:layout_marginTop="20dp"
                     android:text="Hi!"
                     android:textColor="@color/white"
@@ -34,79 +33,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:text="wana read your last book?"
+                    android:layout_marginLeft="23dp"
+                    android:text="want to read the latest book?"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_truyenmoi"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="220dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/iconsach" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="155dp"
-                            android:layout_height="wrap_content"
-                            android:text="The    Institute"
-                            android:textColor="@color/white"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="by Stephen King"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_read"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Read 42%"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <SeekBar
-                            android:id="@+id/seekBar"
-                            android:layout_width="173dp"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="-16dp"
-                            android:max="100"
-                            android:progress="42"
-                            android:progressDrawable="@drawable/seekbar_style"
-                            android:thumb="@drawable/custom_thumb" />
-
-                        <ImageView
-                            android:id="@+id/img_doc"
-                            android:layout_width="146dp"
-                            android:layout_height="43dp"
-                            android:layout_marginLeft="-2dp"
-                            android:layout_marginTop="20dp"
-                            android:src="@drawable/screenshot_1621514862" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
 
