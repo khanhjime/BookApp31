@@ -1,13 +1,17 @@
 package com.example.bookapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.bookapp.adapter.PageAdapter;
 import com.example.bookapp.object.Chap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -15,7 +19,8 @@ import java.util.ArrayList;
 
 public class ReadActivity extends AppCompatActivity {
     FloatingActionButton fabBack;
-    TextView tvContent;
+    ViewPager viewPager;
+    private PageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +33,16 @@ public class ReadActivity extends AppCompatActivity {
         fabBack = findViewById(R.id.fabBack);
         fabBack.setOnClickListener(view -> finish());
 
-        tvContent = findViewById(R.id.tvContent);
+        ArrayList<Chap> listNoiDung = (ArrayList<Chap>) getIntent().getSerializableExtra("noiDung");
 
-//        ArrayList<Chap> listNoiDung = (ArrayList<Chap>) getIntent().getSerializableExtra("noiDung");
-//        tvContent.setText();
+        viewPager = findViewById(R.id.viewpager);
+        adapter = new PageAdapter(getSupportFragmentManager());
+        adapter.setListChap(listNoiDung);
+        viewPager.setAdapter(adapter);
+
+
+
+
 
     }
 

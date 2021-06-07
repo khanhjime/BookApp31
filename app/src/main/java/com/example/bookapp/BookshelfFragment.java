@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe, TruyenTr
 
     @Override
     public void ketThuc(String data) {
+        Log.e("TAG", "ketThuc: " );
         truyenTranhArrayList.clear();
         truyenTranhArrayList.addAll(parseData(data));
         adapter = new TruyenTranhAdapter(getContext(), truyenTranhArrayList, this);
@@ -133,11 +135,11 @@ public class BookshelfFragment extends Fragment implements LayTruyenVe, TruyenTr
     private ArrayList<TruyenTranh> parseData(String json) {
         ArrayList<TruyenTranh> list = new ArrayList<>();
         String tenTruyen, linkAnh;
-        ArrayList<Chap> listChap = new ArrayList<>();
 
         try {
             JSONArray arrayJson = new JSONArray(json);
             for (int i = 0; i < arrayJson.length(); i++) {
+                ArrayList<Chap> listChap = new ArrayList<>();
                 JSONObject jsonObject = arrayJson.getJSONObject(i);
                 tenTruyen = jsonObject.getString("tenTruyen");
                 linkAnh = jsonObject.getString("linhAnh");
