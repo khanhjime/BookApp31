@@ -117,9 +117,7 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
     }
     public void itemClickListener(int pos) {
         Intent intent = new Intent(getContext(),ReadActivity.class);
-        intent.putExtra("tenTruyen",truyenNgangArrayList.get(pos).getTenTruyen());
         intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
-        intent.putExtra("tenTruyen",truyenMoiArrayList.get(pos).getTenTruyen());
         intent.putExtra("noiDung",truyenMoiArrayList.get(pos).getNoiDung());
         startActivity(intent);
     }

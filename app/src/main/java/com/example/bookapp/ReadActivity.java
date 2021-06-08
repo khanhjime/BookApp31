@@ -21,7 +21,6 @@ public class ReadActivity extends AppCompatActivity {
     FloatingActionButton fabBack;
     ViewPager viewPager;
     private PageAdapter adapter;
-    TextView txt_tenTruyen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +29,6 @@ public class ReadActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
-        txt_tenTruyen = findViewById(R.id.txt_tenTruyen2);
 
         fabBack = findViewById(R.id.fabBack);
         fabBack.setOnClickListener(view -> finish());
