@@ -1,0 +1,175 @@
+Index: app/src/main/java/com/example/bookapp/SettingFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bookapp;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\npublic class SettingFragment extends Fragment {\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_setting, container, false);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bookapp/SettingFragment.java	(revision 46cd9b371c834f2b45b017713c10cf0fe6a6a58f)
++++ app/src/main/java/com/example/bookapp/SettingFragment.java	(date 1623052361661)
+@@ -1,19 +1,67 @@
+ package com.example.bookapp;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDelegate;
+ import androidx.fragment.app.Fragment;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.CompoundButton;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import com.example.bookapp.api.ApiLayTruyen;
++
++import org.jetbrains.annotations.NotNull;
+ 
+ public class SettingFragment extends Fragment {
+ 
++    TextView txt_setting,txt_help,txt_about;
++    ImageView icon_right,icon_right2,icon_right3;
++
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         // Inflate the layout for this fragment
+         return inflater.inflate(R.layout.fragment_setting, container, false);
+     }
++
++    @Override
++    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++
++        anhXa(view);
++
++//        txt_setting.setOnClickListener(new View.OnClickListener() {
++//            @Override
++//            public void onClick(View v) {
++//                Intent intent = new Intent(getContext(),SettingActivity.class);
++//                startActivity(intent);
++//            }
++//        });
++//
++//        icon_right.setOnClickListener(new View.OnClickListener() {
++//            @Override
++//            public void onClick(View v) {
++//                Intent intent = new Intent(getContext(),SettingActivity.class);
++//                startActivity(intent);
++//            }
++//        });
++
++    }
++
++    private void anhXa(View view){
++
++        txt_setting = view.findViewById(R.id.txt_setting);
++        txt_help = view.findViewById(R.id.txt_help);
++        txt_about = view.findViewById(R.id.txt_about);
++        icon_right = view.findViewById(R.id.icon_right);
++        icon_right2 = view.findViewById(R.id.icon_right2);
++        icon_right3 = view.findViewById(R.id.icon_right3);
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.bookapp\">\r\n<uses-permission android:name=\"android.permission.INTERNET\"/>\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BookApp\">\r\n        <activity android:name=\".MainActivity\" android:screenOrientation=\"portrait\"></activity>\r\n        <activity android:name=\".ReadActivity\"></activity>\r\n        <activity android:name=\".SplashScreenActivity\" android:screenOrientation=\"portrait\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 46cd9b371c834f2b45b017713c10cf0fe6a6a58f)
++++ app/src/main/AndroidManifest.xml	(date 1623052319778)
+@@ -10,7 +10,7 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.BookApp">
+         <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
+-        <activity android:name=".ReadActivity"></activity>
++        <activity android:name=".ReadActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".SplashScreenActivity" android:screenOrientation="portrait">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.BookApp\" parent=\"Theme.MaterialComponents.DayNight.DarkActionBar\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/purple_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/purple_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/teal_200</item>\r\n        <item name=\"colorSecondaryVariant\">@color/teal_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\" tools:targetApi=\"l\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n    </style>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/themes.xml	(revision 46cd9b371c834f2b45b017713c10cf0fe6a6a58f)
++++ app/src/main/res/values/themes.xml	(date 1623052361656)
+@@ -13,4 +13,19 @@
+         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+         <!-- Customize your theme here. -->
+     </style>
++    <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
++        <!-- Primary brand color. -->
++        <item name="colorPrimary">@color/purple_500</item>
++        <item name="colorPrimaryVariant">@color/purple_700</item>
++        <item name="colorOnPrimary">@color/white</item>
++        <!-- Secondary brand color. -->
++        <item name="colorSecondary">@color/teal_200</item>
++        <item name="colorSecondaryVariant">@color/teal_700</item>
++        <item name="colorOnSecondary">@color/black</item>
++        <!-- Status bar color. -->
++        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
++        <!-- Customize your theme here. -->
++        <item name="bgc">#000000</item>
++        <item name="tc">#ffffff</item>
++    </style>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_setting.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".SettingFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"300dp\"\r\n            android:background=\"@drawable/iconsach7\"\r\n            android:orientation=\"vertical\"></LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/settings\"\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_below=\"@+id/image\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"40dp\"\r\n                android:src=\"@drawable/settings\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"235dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_below=\"@+id/image\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"41dp\"\r\n                android:text=\"Settings\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"20sp\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/icon_right\"\r\n                android:layout_width=\"90dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_marginTop=\"43dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n        </LinearLayout>\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/help\"\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_below=\"@+id/settings\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"40dp\"\r\n                android:src=\"@drawable/help\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"235dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_below=\"@+id/settings\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"41dp\"\r\n                android:text=\"Help Center\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"20sp\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/icon_right2\"\r\n                android:layout_width=\"90dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_marginTop=\"43dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/about\"\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_below=\"@+id/help\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"40dp\"\r\n                android:src=\"@drawable/about\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"235dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_below=\"@+id/help\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginTop=\"41dp\"\r\n                android:text=\"About\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"20sp\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/icon_right3\"\r\n                android:layout_width=\"90dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_marginTop=\"43dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_setting.xml	(revision 46cd9b371c834f2b45b017713c10cf0fe6a6a58f)
++++ app/src/main/res/layout/fragment_setting.xml	(date 1623050313488)
+@@ -35,6 +35,7 @@
+                 android:src="@drawable/settings" />
+ 
+             <TextView
++                android:id="@+id/txt_setting"
+                 android:layout_width="235dp"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/image"
+@@ -69,6 +70,7 @@
+                 android:src="@drawable/help" />
+ 
+             <TextView
++                android:id="@+id/txt_help"
+                 android:layout_width="235dp"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/settings"
+@@ -103,6 +105,7 @@
+                 android:src="@drawable/about" />
+ 
+             <TextView
++                android:id="@+id/txt_about"
+                 android:layout_width="235dp"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/help"
+Index: app/src/main/res/values-night/attr.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-night/attr.xml	(date 1623041737372)
++++ app/src/main/res/values-night/attr.xml	(date 1623041737372)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <declare-styleable name="dt">
++        <attr name="bgc" format="color" />
++        <attr name="tc" format="color" />
++    </declare-styleable>
++</resources>
+\ No newline at end of file

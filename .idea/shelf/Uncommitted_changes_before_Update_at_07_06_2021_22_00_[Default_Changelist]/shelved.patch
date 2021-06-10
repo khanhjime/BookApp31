@@ -1,0 +1,477 @@
+Index: app/src/main/java/com/example/bookapp/HomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bookapp;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.bookapp.adapter.TruyenNgangAdapter;\r\nimport com.example.bookapp.api.ApiLayTruyen;\r\nimport com.example.bookapp.interfaces.LayTruyenVe;\r\nimport com.example.bookapp.object.TruyenNgang;\r\n\r\nimport org.jetbrains.annotations.NotNull;\r\nimport org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\n\r\npublic class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAdapter.OnClickItemListener{\r\n    private RecyclerView dsTruyenNgang;\r\n    private TruyenNgangAdapter truyenNgangAdapter;\r\n    ArrayList<TruyenNgang> truyenNgangArrayList;\r\n    ImageView img_doc;\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_home, container, false);\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n\r\n        anhXa(view);\r\n        init();\r\n\r\n        new ApiLayTruyen(this).execute();\r\n\r\n        img_doc.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent intent = new Intent(getContext(),ReadActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    private void init(){\r\n        truyenNgangArrayList = new ArrayList<>();\r\n        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), truyenNgangArrayList,this);\r\n        LinearLayoutManager horizontalLayoutManager\r\n                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);\r\n        dsTruyenNgang.setLayoutManager(horizontalLayoutManager);\r\n        dsTruyenNgang.setAdapter(truyenNgangAdapter);\r\n\r\n    }\r\n    private void anhXa(View view){\r\n\r\n        dsTruyenNgang= view.findViewById(R.id.rv_truyenngang);\r\n        img_doc=view.findViewById(R.id.img_doc);\r\n    }\r\n\r\n    @Override\r\n    public void batDau() {\r\n        Toast.makeText(getContext(),\"Dang Lay Ve\",Toast.LENGTH_SHORT).show();\r\n    }\r\n\r\n    @Override\r\n    public void ketThuc(String data) {\r\n        try {\r\n            truyenNgangArrayList.clear();\r\n            JSONArray array= new JSONArray(data);\r\n            for (int i = 0; i <array.length() ; i++) {\r\n                JSONObject o= array.getJSONObject(i);\r\n                truyenNgangArrayList.add(new TruyenNgang(o));\r\n            }\r\n            truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList,this);\r\n            dsTruyenNgang.setAdapter(truyenNgangAdapter);\r\n            Collections.reverse(truyenNgangArrayList);\r\n        }catch (JSONException e){\r\n            Log.e(\"TAG\", \"ketThuc: \" );\r\n\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void biLoi() {\r\n        Toast.makeText(getContext(),\"Loi Ket Noi\",Toast.LENGTH_SHORT).show();\r\n    }\r\n    public void itemClickListener(int pos) {\r\n        Intent intent = new Intent(getContext(),ReadActivity.class);\r\n        intent.putExtra(\"noiDung\",truyenNgangArrayList.get(pos).getNoiDung());\r\n        intent.putExtra(\"tenTruyen\",truyenNgangArrayList.get(pos).getTenTruyen());\r\n        startActivity(intent);\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bookapp/HomeFragment.java	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/java/com/example/bookapp/HomeFragment.java	(date 1623077988102)
+@@ -6,6 +6,7 @@
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
++import androidx.recyclerview.widget.GridLayoutManager;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+@@ -17,9 +18,12 @@
+ import android.widget.Toast;
+ 
+ import com.example.bookapp.adapter.TruyenNgangAdapter;
++import com.example.bookapp.adapter.TruyenTranhAdapter;
+ import com.example.bookapp.api.ApiLayTruyen;
+ import com.example.bookapp.interfaces.LayTruyenVe;
++import com.example.bookapp.object.Chap;
+ import com.example.bookapp.object.TruyenNgang;
++import com.example.bookapp.object.TruyenTranh;
+ 
+ import org.jetbrains.annotations.NotNull;
+ import org.json.JSONArray;
+@@ -83,20 +87,15 @@
+ 
+     @Override
+     public void ketThuc(String data) {
+-        try {
+-            truyenNgangArrayList.clear();
+-            JSONArray array= new JSONArray(data);
+-            for (int i = 0; i <array.length() ; i++) {
+-                JSONObject o= array.getJSONObject(i);
+-                truyenNgangArrayList.add(new TruyenNgang(o));
+-            }
+-            truyenNgangAdapter= new TruyenNgangAdapter(getContext(),truyenNgangArrayList,this);
+-            dsTruyenNgang.setAdapter(truyenNgangAdapter);
+-            Collections.reverse(truyenNgangArrayList);
+-        }catch (JSONException e){
+-            Log.e("TAG", "ketThuc: " );
+-
+-        }
++        Log.e("TAG", "ketThuc: " );
++        truyenNgangArrayList.clear();
++        truyenNgangArrayList.addAll(parseData(data));
++        truyenNgangAdapter = new TruyenNgangAdapter(getContext(), truyenNgangArrayList, this);
++        LinearLayoutManager horizontalLayoutManager
++                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
++        dsTruyenNgang.setLayoutManager(horizontalLayoutManager);
++        Collections.reverse(truyenNgangArrayList);
++        dsTruyenNgang.setAdapter(truyenNgangAdapter);
+     }
+ 
+     @Override
+@@ -106,8 +105,31 @@
+     public void itemClickListener(int pos) {
+         Intent intent = new Intent(getContext(),ReadActivity.class);
+         intent.putExtra("noiDung",truyenNgangArrayList.get(pos).getNoiDung());
+-        intent.putExtra("tenTruyen",truyenNgangArrayList.get(pos).getTenTruyen());
+         startActivity(intent);
+     }
+ 
++    private ArrayList<TruyenNgang> parseData(String json) {
++        ArrayList<TruyenNgang> list = new ArrayList<>();
++        String linkAnh;
++
++        try {
++            JSONArray arrayJson = new JSONArray(json);
++            for (int i = 0; i < arrayJson.length(); i++) {
++                ArrayList<Chap> listChap = new ArrayList<>();
++                JSONObject jsonObject = arrayJson.getJSONObject(i);;
++                linkAnh = jsonObject.getString("linhAnh");
++                JSONArray jsonArrayNd = jsonObject.getJSONArray("noiDung");
++                for (int k = 0; k < jsonArrayNd.length(); k++) {
++                    JSONObject jsonObjectChap = jsonArrayNd.getJSONObject(k);
++                    listChap.add(new Chap(jsonObjectChap.getInt("pageNumber"), jsonObjectChap.getString("data")));
++                }
++                list.add(new TruyenNgang(linkAnh,listChap));
++            }
++        } catch (Exception ex) {
++
++        }
++
++        return list;
++    }
++
+ }
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.bookapp\">\r\n<uses-permission android:name=\"android.permission.INTERNET\"/>\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BookApp\">\r\n        <activity android:name=\".MainActivity\" android:screenOrientation=\"portrait\"></activity>\r\n        <activity android:name=\".ReadActivity\"></activity>\r\n        <activity android:name=\".SplashScreenActivity\" android:screenOrientation=\"portrait\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/AndroidManifest.xml	(date 1623076769360)
+@@ -10,7 +10,7 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.BookApp">
+         <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
+-        <activity android:name=".ReadActivity"></activity>
++        <activity android:name=".ReadActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".SplashScreenActivity" android:screenOrientation="portrait">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/java/com/example/bookapp/object/TruyenNgang.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bookapp.object;\r\n\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\npublic class TruyenNgang {\r\n    private String tenTruyen, anhTruyenNgang, noiDung;\r\n\r\n    public TruyenNgang() {\r\n    }\r\n\r\n    public TruyenNgang(JSONObject o)throws JSONException {\r\n        tenTruyen= o.getString(\"tenTruyen\");\r\n        anhTruyenNgang= o.getString(\"linhAnh\");\r\n        noiDung= o.getString(\"noiDung\");\r\n    }\r\n\r\n    public TruyenNgang(String tenTruyen, String anhTruyenNgang, String noiDung) {\r\n        this.tenTruyen = tenTruyen;\r\n        this.anhTruyenNgang = anhTruyenNgang;\r\n        this.noiDung = noiDung;\r\n    }\r\n\r\n    public String getTenTruyen() {\r\n        return tenTruyen;\r\n    }\r\n\r\n    public void setTenTruyen(String tenTruyen) {\r\n        this.tenTruyen = tenTruyen;\r\n    }\r\n\r\n    public String getAnhTruyenNgang() {\r\n        return anhTruyenNgang;\r\n    }\r\n\r\n    public void setAnhTruyenNgang(String anhTruyenNgang) {\r\n        this.anhTruyenNgang = anhTruyenNgang;\r\n    }\r\n\r\n    public String getNoiDung() {\r\n        return noiDung;\r\n    }\r\n\r\n    public void setNoiDung(String noiDung) {\r\n        this.noiDung = noiDung;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bookapp/object/TruyenNgang.java	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/java/com/example/bookapp/object/TruyenNgang.java	(date 1623077671736)
+@@ -1,34 +1,24 @@
+ package com.example.bookapp.object;
+ 
++import android.widget.ArrayAdapter;
++
+ import org.json.JSONException;
+ import org.json.JSONObject;
+ 
++import java.util.ArrayList;
++
+ public class TruyenNgang {
+-    private String tenTruyen, anhTruyenNgang, noiDung;
++    private String anhTruyenNgang;
++    private ArrayList<Chap> noiDung;
+ 
+     public TruyenNgang() {
+     }
+ 
+-    public TruyenNgang(JSONObject o)throws JSONException {
+-        tenTruyen= o.getString("tenTruyen");
+-        anhTruyenNgang= o.getString("linhAnh");
+-        noiDung= o.getString("noiDung");
+-    }
+-
+-    public TruyenNgang(String tenTruyen, String anhTruyenNgang, String noiDung) {
+-        this.tenTruyen = tenTruyen;
++    public TruyenNgang(String anhTruyenNgang, ArrayList<Chap> noiDung) {
+         this.anhTruyenNgang = anhTruyenNgang;
+         this.noiDung = noiDung;
+     }
+ 
+-    public String getTenTruyen() {
+-        return tenTruyen;
+-    }
+-
+-    public void setTenTruyen(String tenTruyen) {
+-        this.tenTruyen = tenTruyen;
+-    }
+-
+     public String getAnhTruyenNgang() {
+         return anhTruyenNgang;
+     }
+@@ -37,11 +27,11 @@
+         this.anhTruyenNgang = anhTruyenNgang;
+     }
+ 
+-    public String getNoiDung() {
++    public ArrayList<Chap> getNoiDung() {
+         return noiDung;
+     }
+ 
+-    public void setNoiDung(String noiDung) {
++    public void setNoiDung(ArrayList<Chap> noiDung) {
+         this.noiDung = noiDung;
+     }
+ }
+Index: app/src/main/java/com/example/bookapp/SettingFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bookapp;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\npublic class SettingFragment extends Fragment {\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_setting, container, false);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bookapp/SettingFragment.java	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/java/com/example/bookapp/SettingFragment.java	(date 1623076769344)
+@@ -1,19 +1,67 @@
+ package com.example.bookapp;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDelegate;
+ import androidx.fragment.app.Fragment;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.CompoundButton;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import com.example.bookapp.api.ApiLayTruyen;
++
++import org.jetbrains.annotations.NotNull;
+ 
+ public class SettingFragment extends Fragment {
+ 
++    TextView txt_setting,txt_help,txt_about;
++    ImageView icon_right,icon_right2,icon_right3;
++
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         // Inflate the layout for this fragment
+         return inflater.inflate(R.layout.fragment_setting, container, false);
+     }
++
++    @Override
++    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++
++        anhXa(view);
++
++//        txt_setting.setOnClickListener(new View.OnClickListener() {
++//            @Override
++//            public void onClick(View v) {
++//                Intent intent = new Intent(getContext(),SettingActivity.class);
++//                startActivity(intent);
++//            }
++//        });
++//
++//        icon_right.setOnClickListener(new View.OnClickListener() {
++//            @Override
++//            public void onClick(View v) {
++//                Intent intent = new Intent(getContext(),SettingActivity.class);
++//                startActivity(intent);
++//            }
++//        });
++
++    }
++
++    private void anhXa(View view){
++
++        txt_setting = view.findViewById(R.id.txt_setting);
++        txt_help = view.findViewById(R.id.txt_help);
++        txt_about = view.findViewById(R.id.txt_about);
++        icon_right = view.findViewById(R.id.icon_right);
++        icon_right2 = view.findViewById(R.id.icon_right2);
++        icon_right3 = view.findViewById(R.id.icon_right3);
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/res/values-night/attr.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-night/attr.xml	(date 1623076783606)
++++ app/src/main/res/values-night/attr.xml	(date 1623076783606)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <declare-styleable name="dt">
++        <attr name="bgc" format="color" />
++        <attr name="tc" format="color" />
++    </declare-styleable>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.BookApp\" parent=\"Theme.MaterialComponents.DayNight.DarkActionBar\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/purple_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/purple_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/teal_200</item>\r\n        <item name=\"colorSecondaryVariant\">@color/teal_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\" tools:targetApi=\"l\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n    </style>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/themes.xml	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/res/values/themes.xml	(date 1623076769379)
+@@ -13,4 +13,19 @@
+         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+         <!-- Customize your theme here. -->
+     </style>
++    <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
++        <!-- Primary brand color. -->
++        <item name="colorPrimary">@color/purple_500</item>
++        <item name="colorPrimaryVariant">@color/purple_700</item>
++        <item name="colorOnPrimary">@color/white</item>
++        <!-- Secondary brand color. -->
++        <item name="colorSecondary">@color/teal_200</item>
++        <item name="colorSecondaryVariant">@color/teal_700</item>
++        <item name="colorOnSecondary">@color/black</item>
++        <!-- Status bar color. -->
++        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
++        <!-- Customize your theme here. -->
++        <item name="bgc">#000000</item>
++        <item name="tc">#ffffff</item>
++    </style>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_setting.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".SettingFragment\">\r\n\r\n\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <View\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"319dp\"\r\n            android:background=\"@drawable/small_banner\"\r\n            android:orientation=\"vertical\"/>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/itemSettings\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"60dp\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\"\r\n            android:weightSum=\"10\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/settings\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"8\"\r\n                android:gravity=\"center_vertical\"\r\n                android:text=\"@string/settings\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"16sp\" />\r\n\r\n            <ImageView\r\n                android:layout_width=\"6dp\"\r\n                android:layout_height=\"22dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n        </LinearLayout>\r\n\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/itemHelpCenter\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"60dp\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\"\r\n            android:weightSum=\"10\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/help\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"8\"\r\n                android:gravity=\"center_vertical\"\r\n                android:text=\"@string/help_center\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"16sp\" />\r\n\r\n            <ImageView\r\n                android:layout_width=\"6dp\"\r\n                android:layout_height=\"22dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/itemAbout\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"60dp\"\r\n            android:gravity=\"center\"\r\n            android:orientation=\"horizontal\"\r\n            android:weightSum=\"10\">\r\n\r\n            <ImageView\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/about\" />\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"8\"\r\n                android:gravity=\"center_vertical\"\r\n                android:text=\"@string/about\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"16sp\" />\r\n\r\n            <ImageView\r\n                android:layout_width=\"6dp\"\r\n                android:layout_height=\"22dp\"\r\n                android:layout_weight=\"1\"\r\n                android:src=\"@drawable/iconnext\" />\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_setting.xml	(revision 6b34f8dfb4b5567139fc223254f21a15d642e9dc)
++++ app/src/main/res/layout/fragment_setting.xml	(date 1623076860406)
+@@ -6,6 +6,7 @@
+     android:layout_height="match_parent"
+     tools:context=".SettingFragment">
+ 
++    <!-- TODO: Update blank fragment layout -->
+ 
+ 
+     <LinearLayout
+@@ -13,99 +14,112 @@
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+ 
+-        <View
++        <LinearLayout
+             android:layout_width="match_parent"
+-            android:layout_height="319dp"
+-            android:background="@drawable/small_banner"
+-            android:orientation="vertical"/>
++            android:layout_height="300dp"
++            android:background="@drawable/iconsach7"
++            android:orientation="vertical"></LinearLayout>
+ 
+         <LinearLayout
+-            android:id="@+id/itemSettings"
+             android:layout_width="match_parent"
+-            android:layout_height="60dp"
+-            android:gravity="center"
+-            android:orientation="horizontal"
+-            android:weightSum="10">
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
+ 
+             <ImageView
++                android:id="@+id/settings"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+-                android:layout_weight="1"
++                android:layout_below="@+id/image"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="40dp"
+                 android:src="@drawable/settings" />
+ 
+             <TextView
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="8"
+-                android:gravity="center_vertical"
+-                android:text="@string/settings"
++                android:id="@+id/txt_setting"
++                android:layout_width="235dp"
++                android:layout_height="wrap_content"
++                android:layout_below="@+id/image"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="41dp"
++                android:text="Settings"
+                 android:textColor="@color/black"
+-                android:textSize="16sp" />
++                android:textSize="20sp" />
+ 
+             <ImageView
+-                android:layout_width="6dp"
+-                android:layout_height="22dp"
++                android:id="@+id/icon_right"
++                android:layout_width="90dp"
++                android:layout_height="20dp"
++                android:layout_marginTop="43dp"
+                 android:layout_weight="1"
+                 android:src="@drawable/iconnext" />
+         </LinearLayout>
+ 
+ 
+         <LinearLayout
+-            android:id="@+id/itemHelpCenter"
+             android:layout_width="match_parent"
+-            android:layout_height="60dp"
+-            android:gravity="center"
+-            android:orientation="horizontal"
+-            android:weightSum="10">
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
+ 
+             <ImageView
++                android:id="@+id/help"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+-                android:layout_weight="1"
++                android:layout_below="@+id/settings"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="40dp"
+                 android:src="@drawable/help" />
+ 
+             <TextView
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="8"
+-                android:gravity="center_vertical"
+-                android:text="@string/help_center"
++                android:id="@+id/txt_help"
++                android:layout_width="235dp"
++                android:layout_height="wrap_content"
++                android:layout_below="@+id/settings"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="41dp"
++                android:text="Help Center"
+                 android:textColor="@color/black"
+-                android:textSize="16sp" />
++                android:textSize="20sp" />
+ 
+             <ImageView
+-                android:layout_width="6dp"
+-                android:layout_height="22dp"
++                android:id="@+id/icon_right2"
++                android:layout_width="90dp"
++                android:layout_height="20dp"
++                android:layout_marginTop="43dp"
+                 android:layout_weight="1"
+                 android:src="@drawable/iconnext" />
++
+         </LinearLayout>
+ 
+         <LinearLayout
+-            android:id="@+id/itemAbout"
+             android:layout_width="match_parent"
+-            android:layout_height="60dp"
+-            android:gravity="center"
+-            android:orientation="horizontal"
+-            android:weightSum="10">
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
+ 
+             <ImageView
++                android:id="@+id/about"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+-                android:layout_weight="1"
++                android:layout_below="@+id/help"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="40dp"
+                 android:src="@drawable/about" />
+ 
+             <TextView
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="8"
+-                android:gravity="center_vertical"
+-                android:text="@string/about"
++                android:id="@+id/txt_about"
++                android:layout_width="235dp"
++                android:layout_height="wrap_content"
++                android:layout_below="@+id/help"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="41dp"
++                android:text="About"
+                 android:textColor="@color/black"
+-                android:textSize="16sp" />
++                android:textSize="20sp" />
+ 
+             <ImageView
+-                android:layout_width="6dp"
+-                android:layout_height="22dp"
++                android:id="@+id/icon_right3"
++                android:layout_width="90dp"
++                android:layout_height="20dp"
++                android:layout_marginTop="43dp"
+                 android:layout_weight="1"
+                 android:src="@drawable/iconnext" />
+         </LinearLayout>
