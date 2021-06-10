@@ -11,6 +11,7 @@
         android:theme="@style/Theme.BookApp">
         <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".ReadActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".SettingActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".SplashScreenActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
