@@ -15,13 +15,16 @@ public class SettingActivity extends AppCompatActivity {
     private Switch aSwitch;
     private TextView aTextView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
+
         } else {
             setTheme(R.style.Theme_AppCompat);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ActionBar actionBar = getSupportActionBar();
@@ -49,6 +52,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 }
 
+
             }
         });
     }
@@ -58,4 +62,5 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(intent);
         fileList();
     }
+
 }

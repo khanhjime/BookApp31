@@ -20,7 +20,7 @@
             android:text="Bookshelf"
             android:textSize="30dp"
             android:textStyle="bold|italic"
-            android:textColor="@color/black"/>
+            android:textColor="#7293df"/>
 
         <EditText
             android:id="@+id/edtTK"

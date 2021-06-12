@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookapp.adapter.TruyenMoiAdaper;
@@ -42,16 +44,23 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
     ArrayList<TruyenNgang> truyenNgangArrayList;
     private TruyenMoiAdaper truyenMoiAdaper;
     ArrayList<TruyenMoi> truyenMoiArrayList;
+    private  TextView textView;
+
+    public HomeFragment() {
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         anhXa(view);
@@ -76,8 +85,11 @@ public class HomeFragment extends Fragment implements LayTruyenVe, TruyenNgangAd
         rv_truyenmoi.setLayoutManager(horizontalLayoutManager1);
         rv_truyenmoi.setAdapter(truyenMoiAdaper);
 
+
+
     }
     private void anhXa(View view){
+
 
         dsTruyenNgang = view.findViewById(R.id.rv_truyenngang);
         rv_truyenmoi = view.findViewById(R.id.rv_truyenmoi);

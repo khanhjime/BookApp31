@@ -19,7 +19,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="Ten Truyen"
-        android:textColor="#000"
+        android:textColor="#7293df"
         android:textSize="15sp" />
 
 </LinearLayout>
