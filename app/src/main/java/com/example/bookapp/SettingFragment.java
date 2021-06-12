@@ -53,6 +53,38 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        txt_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),HelpCenterAboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        icon_right2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),HelpCenterAboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        txt_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        icon_right3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void anhXa(View view){

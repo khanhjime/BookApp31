@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/brg"
+    tools:context=".AboutActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ab" />
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:text="Đội ngũ phát triển"
+        android:textSize="36dp"
+        android:fontFamily="@font/seagu"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Coder: "
+        android:textSize="28dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:layout_marginLeft="10dp"
+        android:drawableStart="@drawable/ic_baseline_developer_mode_24"
+        android:drawableLeft="@drawable/ic_baseline_developer_mode_24" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="
+            Phan Quốc Khánh\n
+            Lưu Quang Luân \n
+            Ngô Văn Hưng \n
+            Nguyễn Mạnh Quân"
+        android:textSize="28dp"
+        android:lineHeight="30dp"
+        android:textColor="@color/black"
+        android:shadowColor="@color/white"
+        android:fontFamily="@font/caviar"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Tester: "
+        android:textSize="28dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:layout_marginLeft="10dp"
+        android:drawableStart="@drawable/ic_baseline_adb_24"
+        android:drawableLeft="@drawable/ic_baseline_adb_24"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="
+            Trần Đình Thịnh\n
+            Vũ Văn Phòng \n"
+        android:textSize="28dp"
+        android:lineHeight="30dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/caviar"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Phiên bản: 1.0"
+        android:gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_marginTop="30dp"
+        />
+
+</LinearLayout>
