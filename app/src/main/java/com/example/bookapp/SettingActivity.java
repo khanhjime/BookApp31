@@ -42,11 +42,11 @@ public class SettingActivity extends AppCompatActivity {
                 if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     aTextView.setText("Dark mode");
-                    reset();
+
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     aTextView.setText("light mode");
-                    reset();
+
 
                 }
 
@@ -55,10 +55,6 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    private void reset() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        fileList();
-    }
+
 
 }

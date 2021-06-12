@@ -28,7 +28,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="bgc">#000000</item>
-        <item name="tc">#ffffff</item>
+        <item name="tc">#7293df</item>
     </style>
    
 </resources>
