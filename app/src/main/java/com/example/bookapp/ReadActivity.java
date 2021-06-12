@@ -39,11 +39,6 @@ public class ReadActivity extends AppCompatActivity {
         adapter = new PageAdapter(getSupportFragmentManager());
         adapter.setListChap(listNoiDung);
         viewPager.setAdapter(adapter);
-
-
-
-
-
     }
 
 }
