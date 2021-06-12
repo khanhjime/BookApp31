@@ -37,21 +37,21 @@ public class SettingFragment extends Fragment {
 
         anhXa(view);
 
-//        txt_setting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(),SettingActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        icon_right.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(),SettingActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        txt_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        icon_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         txt_help.setOnClickListener(new View.OnClickListener() {
             @Override
