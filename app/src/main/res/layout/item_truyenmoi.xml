@@ -21,9 +21,9 @@
 
     <ImageView
         android:id="@+id/img_doc"
-        android:layout_width="146dp"
-        android:layout_height="43dp"
+        android:layout_width="155dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="170dp"
         android:layout_marginTop="170dp"
-        android:src="@drawable/screenshot_1621514862" />
+        android:src="@drawable/btn_read" />
 </RelativeLayout>
